@@ -103,7 +103,7 @@
                         <img src="<?php echo base_url(); ?>assets/css/images/close1.png" alt="" />
                     </div>
                 </div>
-                <form class="popup-cont" action="<?php echo base_url()."index.php/User/authenticate"?>" method="post">
+                <form class="popup-cont" action="<?php echo base_url().'index.php/User/authenticate'?>" method="post">
                     <div class="item-popup">
                         <label class="label-style" for="">User</label>
                         <input class="login-data input-text-style" type="text" id="user-name" name="name" value="" placeholder="your user" max="5">
@@ -129,38 +129,38 @@
                         <img src="<?php echo base_url(); ?>assets/css/images/close1.png" alt="" />
                     </div>
                 </div>
-                <form class="popup-cont">
+                <form class="popup-cont" id="form">
                     <div class="item-popup">
                         <label class="label-style" for="">User</label>
                         <input class="signin-data input-text-style" id="name" type="text" name="name" placeholder="Jon">
                     </div>
                     <div class="item-popup">
-                        <label class="label-style" for="">Las name</label>
-                        <input class="signin-data input-text-style" id="last-name" type="text" name="name" placeholder="snow">
+                        <label class="label-style" for="">Last name</label>
+                        <input class="signin-data input-text-style" id="last-name" type="text" name="last_name" placeholder="snow">
                     </div>
                     <div class="item-popup">
                         <label class="label-style" for="">phone</label>
-                        <input class="signin-data input-text-style" id="phone" type="number" name="name" placeholder="555-555-555">
+                        <input class="signin-data input-text-style" id="phone" type="number" name="phone" placeholder="555-555-555">
                     </div>
                     <div class="item-popup">
                         <label class="label-style" for="">User name</label>
-                        <input class="signin-data input-text-style" id="user-name" type="text" name="name" placeholder="theWolf123">
+                        <input class="signin-data input-text-style" id="user-name" type="text" name="user_name" placeholder="theWolf123">
                         <div id="UserNameErrorContainer"></div>
                     </div>
                     <div class="item-popup">
                         <label class="label-style" for="">password</label>
-                        <input class="signin-data input-text-style" id="pass-1" type="password" name="name" placeholder="...your password">
+                        <input class="signin-data input-text-style" id="pass-1" type="password" name="password" placeholder="...your password">
                     </div>
                     <div class="item-popup">
                         <label class="label-style" for="">repeat Password</label>
-                        <input class="signin-data input-text-style" id="pass-2" type="password" name="name" placeholder="...your password">
+                        <input class="signin-data input-text-style" id="pass-2" type="password" name="repeat" placeholder="...your password">
                         <div id="passErrorContainer"></div>
                     </div>
                     <div class="item-popup last">
                         <input type="button" class="btn-style-in" id="register" name="name" value="Register">
-                        <p class="other-op-log-sign">Already an user?<a href="#" id="hide-signin">Login here</a></p>
+                        <p class="other-op-log-sign">Already an user?<a id="hide-signin">Login here</a></p>
                     </div>
-                </form>
+               </form>
             </div>
         </div>
     </section>
@@ -219,10 +219,10 @@
     <div id="map" style="position:absolute;" class="container close-popup close-map"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/logicObjects.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/validation.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/logicPag1.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/api-google.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/query.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpvVbVzSJlq3ryX_iUn0loWB8qRLyqpLw&signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
 </body>
 

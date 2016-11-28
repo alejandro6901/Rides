@@ -7,6 +7,7 @@ class User extends CI_Controller
     public function index()
     {
         $session = $this->session->flashdata('login');
+        $error = $this->session->flashdata('login');
         if ($session == null) {
             $this->load->view('User/login');
         } else {
@@ -30,20 +31,33 @@ class User extends CI_Controller
             $session = $this->session->set_flashdata('login', true);
             redirect('index.php/User/');
         } else {
-            $error = $this->session->set_flashdata('error', 'userName and Password are incorrect');
+            $error = $this->session->set_flashdata('error', 'Username and Password are incorrect');
             $data['error'] = $error;
             $this->load->view('User/login', $data);
         }
     }
-    function insertUser()
+    public function insertUser()
     {
-      $name = $this->input->post('name');
-      $last_name = $this->input->post('last_name');
-      $phone = $this->input->post('phone');
-      $user_name = $this->input->post('user_name');
-      $pass = $this->input->post('password');
-      $repeat_pass = $this->input->post('repeat');
-      var_dump($name);
-      die;
+        $repeat_pass = $this->input->post('repeat');
+        $error = array('respuesta' => false);
+        $data = array(
+                'name' => $this->input->post('name'),
+                'last_name' => $this->input->post('last_name'),
+                'phone' => $this->input->post('phone'),
+                'user_name' => $this->input->post('user_name'),
+                'password' => $this->input->post('password')
+          );
+
+       $this->load->model('User_model');
+
+        if ($repeat_pass === $data['password']) {
+            $this->User_model->insertUser($data);
+            $error['respuesta'] = true;
+
+        } else {
+ $error['incorrect'] = array('name','last_name','phone','user_name','password','repeat');
+        }
+
+        echo json_encode($error);
     }
 }

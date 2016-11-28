@@ -1,3 +1,4 @@
+
 class Place {
     fillPlace(place, direction) {
         this.Id = place.id;
@@ -227,17 +228,8 @@ class User {
             0:to get login
             1:to get the name and last name of the current user
             default:to get the username
-        */
-    ToString(typeOfVal) {
-        switch (typeOfVal) {
-            case 0:
-                return this.UserName + ' ' + this.Password;
-            case 1:
-                return this.User + ' ' + this.LastName;
-            default:
-                return this.UserName;
-        }
-    }
+      
+
 }
 class BO_User {
     /*create a new user*/

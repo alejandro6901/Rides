@@ -7,7 +7,7 @@ class User_model extends CI_Model
        parent::__construct();
    }
 
-   public function insertUser($data)
+    function insertUser($data)
    {
       $this->db->insert('user', $data);
    }
