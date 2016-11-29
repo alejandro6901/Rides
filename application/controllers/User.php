@@ -38,8 +38,8 @@ class User extends CI_Controller
     }
     public function insertUser()
     {
-        $repeat_pass = $this->input->post('repeat');
-        $error = array('respuesta' => false);
+
+        // $error = array('respuesta' => false);
         $data = array(
                 'name' => $this->input->post('name'),
                 'last_name' => $this->input->post('last_name'),
@@ -49,15 +49,27 @@ class User extends CI_Controller
           );
 
        $this->load->model('User_model');
+       $this->load->library('form_validation');
 
-        if ($repeat_pass === $data['password']) {
+
+       $this->form_validation->set_rules('name','Name','trim|required|min_length[6]');
+       $this->form_validation->set_rules('last_name','Last Name','trim|required|min_length[6]');
+       $this->form_validation->set_rules('phone','Phone','trim|required|numeric|min_length[8]');
+       $this->form_validation->set_rules('password','Password','trim|required|matches[repeat]|min_length[6]');
+       $this->form_validation->set_rules('repeat','Repeat Password','trim|required|min_length[6]');
+       $this->form_validation->set_message('required','%s is required');
+       $this->form_validation->set_message('min_length','%s Minimum Lenght are 6');
+       $this->form_validation->set_message('numeric','The Phone only can be numbers');
+
+        if ($this->form_validation->run()) {
             $this->User_model->insertUser($data);
-            $error['respuesta'] = true;
+            // $error['respuesta'] = true;
 
         } else {
- $error['incorrect'] = array('name','last_name','phone','user_name','password','repeat');
+          //  $error['incorrect'] = array('name','last_name','phone','user_name','password','repeat');
+              redirect('index.php/User');
         }
 
-        echo json_encode($error);
+        // echo json_encode($error);
     }
 }

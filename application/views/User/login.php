@@ -12,6 +12,7 @@
 </head>
 
 <body>
+
     <section class="container-fluid">
         <section class="row">
             <div class="col-md-4 col-sm-12">
@@ -129,7 +130,7 @@
                         <img src="<?php echo base_url(); ?>assets/css/images/close1.png" alt="" />
                     </div>
                 </div>
-                <form class="popup-cont" id="form">
+                <form class="popup-cont" action="index.php/User/insertUser" method="post">
                     <div class="item-popup">
                         <label class="label-style" for="">User</label>
                         <input class="signin-data input-text-style" id="name" type="text" name="name" placeholder="Jon">
@@ -154,10 +155,10 @@
                     <div class="item-popup">
                         <label class="label-style" for="">repeat Password</label>
                         <input class="signin-data input-text-style" id="pass-2" type="password" name="repeat" placeholder="...your password">
-                        <div id="passErrorContainer"></div>
+                        <div id="passErrorContainer"><?php echo validation_errors(); ?></div>
                     </div>
                     <div class="item-popup last">
-                        <input type="button" class="btn-style-in" id="register" name="name" value="Register">
+                        <input type="submit" class="btn-style-in"  name="name" value="Register">
                         <p class="other-op-log-sign">Already an user?<a id="hide-signin">Login here</a></p>
                     </div>
                </form>

@@ -764,6 +764,8 @@ div#passErrorContainer, div#UserNameErrorContainer, div#LoginErrorContainer {
     align-items: center;
 }
 .errorStyle, #days-error {
+    display: flex;
+    flex-wrap: wrap;
     text-transform: uppercase;
     text-align: center;
     font-size: 8px;

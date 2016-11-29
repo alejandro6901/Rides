@@ -154,52 +154,55 @@ var PublicApp = {
 
     /*start the process to login the user*/
     signIn() {
-        $.ajax({
-            url: 'index.php/User/insertUser',
-            type: 'POST',
-            data: $('#form').serialize(),
-            success: function(msj) {
+        // $.ajax({
+        //     url: 'index.php/User/insertUser',
+        //     type: 'POST',
+        //     data: $('#form').serialize(),
+        //     success: function(msj) {
+        //
+        //         var json = JSON.parse(msj);
+        //         console.log(json);
+        //         if (json.respuesta) {
+        //             PublicApp.hideSign();
+        //         } else {
+                    //  $("#passErrorContainer").append("<span class='errorStyle'>Todo VACIO</span>");
+                  //  var incorrects = json.incorrect;
+                  //  for (var i = 0; i < incorrects.length; i++) {
+                   //
+                  //       switch (incorrects[i]) {
+                   //
+                  //           case 'name':
+                  //               $("#passErrorContainer").append("<span class='errorStyle'>Name vacio</span>");
+                   //
+                  //               break;
+                  //           case 'last_name':
+                  //               $("#passErrorContainer").append("<span class='errorStyle'>Last_name vacio</span>");
+                  //               break;
+                  //           case 'phone':
+                  //                 $("#passErrorContainer").append("<span class='errorStyle'>Phone vacio</span>");
+                  //               break;
+                  //           case 'user_name':
+                  //               $("#passErrorContainer").append("<span class='errorStyle'>User Name vacio</span>");
+                  //               break;
+                  //           case 'password':
+                  //               $("#passErrorContainer").append("<span class='errorStyle'>Password vacio</span>");
+                  //               break;
+                  //           case 'repeat':
+                  //               $("#passErrorContainer").append("<span class='errorStyle'>Dont match vacio</span>");
+                  //               break;
+                  //           default:
+                  //           $("#passErrorContainer").append("<span class='errorStyle'>Todo vacio</span>");
+                   //
+                   //
+                  //       }
+                   //
 
-                var json = JSON.parse(msj);
-                console.log(json);
-                if (json.respuesta) {
-                    PublicApp.hideSign();
-                } else {
-                    var incorrects = json.incorrect;
-                   for (var i = 0; i < incorrects.length; i++) {
+                    // }
 
-                        switch (incorrects[i]) {
+                // }
 
-                            case 'name':
-                                $("#passErrorContainer").append("<span class='errorStyle'>Name vacio</span>");
-
-                                break;
-                            case 'last_name':
-                            
-                                break;
-                            case 'phone':
-
-                                break;
-                            case 'user_name':
-
-                                break;
-                            case 'password':
-
-                                break;
-                            case 'repeat':
-
-                                break;
-                            default:
-
-                        }
-
-
-                    }
-
-                }
-
-            }
-        });
+            // }
+        // });
 
     },
 
