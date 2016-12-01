@@ -154,55 +154,23 @@ var PublicApp = {
 
     /*start the process to login the user*/
     signIn() {
-        // $.ajax({
-        //     url: 'index.php/User/insertUser',
-        //     type: 'POST',
-        //     data: $('#form').serialize(),
-        //     success: function(msj) {
-        //
-        //         var json = JSON.parse(msj);
-        //         console.log(json);
-        //         if (json.respuesta) {
-        //             PublicApp.hideSign();
-        //         } else {
-                    //  $("#passErrorContainer").append("<span class='errorStyle'>Todo VACIO</span>");
-                  //  var incorrects = json.incorrect;
-                  //  for (var i = 0; i < incorrects.length; i++) {
-                   //
-                  //       switch (incorrects[i]) {
-                   //
-                  //           case 'name':
-                  //               $("#passErrorContainer").append("<span class='errorStyle'>Name vacio</span>");
-                   //
-                  //               break;
-                  //           case 'last_name':
-                  //               $("#passErrorContainer").append("<span class='errorStyle'>Last_name vacio</span>");
-                  //               break;
-                  //           case 'phone':
-                  //                 $("#passErrorContainer").append("<span class='errorStyle'>Phone vacio</span>");
-                  //               break;
-                  //           case 'user_name':
-                  //               $("#passErrorContainer").append("<span class='errorStyle'>User Name vacio</span>");
-                  //               break;
-                  //           case 'password':
-                  //               $("#passErrorContainer").append("<span class='errorStyle'>Password vacio</span>");
-                  //               break;
-                  //           case 'repeat':
-                  //               $("#passErrorContainer").append("<span class='errorStyle'>Dont match vacio</span>");
-                  //               break;
-                  //           default:
-                  //           $("#passErrorContainer").append("<span class='errorStyle'>Todo vacio</span>");
-                   //
-                   //
-                  //       }
-                   //
+        $.ajax({
+            url: 'User/insertUser',
+            type: 'POST',
+            data: $('#form').serialize(),
+            success: function(msj) {
+                var json = JSON.parse(msj);
 
-                    // }
+                if (json.respuesta) {
+                    PublicApp.hideSign();
+                } else {
+                    $("#passErrorContainer").append("<span class='errorStyle'>Empty Fields</span>");
+                }
 
-                // }
+            }
 
-            // }
-        // });
+
+        });
 
     },
 
@@ -230,17 +198,23 @@ var PublicApp = {
     },
 
     /*start the process to login the user and if it's ok, it will redirect to principal app*/
-    // logIn() {
-    //     var dataCollection = $(".login-data");
-    //     $(".errorStyle").remove();
-    //     if (!Components.validateControls(dataCollection)) {
-    //         var userBo = new BO_User();
-    //         if (userBo.login(userBo.createUser(dataCollection))) {
-    //             location.href = "./panel-user.html";
-    //         } else {
-    //             $("#LoginErrorContainer").append("<span class='errorStyle'>the credentials are wrong</span>");
-    //         }
-    //     }
-    // }
+    logIn() {
+        $.ajax({
+            url: 'authenticate',
+            type: 'POST',
+            data: $('#login-form').serialize(),
+            success: function(msj) {
+                var json = JSON.parse(msj);
+                if (json.respuesta) {
+                    PublicApp.hideLogin();
+                } else {
+                    $("#LoginErrorContainer").append("<span class='errorStyle'>Empty Fields</span>");
+                }
+
+            }
+        });
+
+
+    }
 }
 PublicApp.initComponents();

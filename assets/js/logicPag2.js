@@ -5,7 +5,7 @@ var Rides = {
 
     /*charge the user's info and add events to buttons*/
     initNameSpace() {
-        
+
         document.getElementById('logo-container').addEventListener("click", function() {
             Rides.goStart();
         }, false);
@@ -95,9 +95,7 @@ var Rides = {
                 items[i].classList.remove('come-up');
                 switch (e.id) {
                     case 'dashboard':
-                        var rideBo = new BO_Ride();
-                        var rides = rideBo.loadRides();
-                        this.loadTableRides(rides);
+
                         Components.fixedTable();
                         break;
                     case 'rides':
@@ -106,7 +104,7 @@ var Rides = {
                         this.clearControlsRide();
                         break;
                     case 'settings':
-                        this.loadSettingsUser();
+                        // this.loadSettingsUser();
                         break;
                     default:
                 }
@@ -144,42 +142,42 @@ var Rides = {
     },
 
     /*load the user info on the settings panel*/
-    loadSettingsUser() {
-        var controls = document.getElementsByClassName('settings-data');
-        var userBo = new BO_User();
-        var user;
-        user = userBo.userCurrentData();
-        for (var i = 0; i < controls.length; i++) {
-            switch (controls[i].id) {
-                case 'name':
-                    controls[i].value = user.ToString(1);
-                    break;
-                case 'speed':
-                    controls[i].value = user.SpeedAverage;
-                    break;
-                case 'about-me':
-                    controls[i].value = user.AboutMe;
-                    break;
-            }
-        }
-    },
+    // loadSettingsUser() {
+    // var controls = document.getElementsByClassName('settings-data');
+    // var userBo = new BO_User();
+    // var user;
+    // user = userBo.userCurrentData();
+    // for (var i = 0; i < controls.length; i++) {
+    //     switch (controls[i].id) {
+    //         case 'name':
+    //             controls[i].value = user.ToString(1);
+    //             break;
+    //         case 'speed':
+    //             controls[i].value = user.SpeedAverage;
+    //             break;
+    //         case 'about-me':
+    //             controls[i].value = user.AboutMe;
+    //             break;
+    //     }
+    // }
+    // },
 
     /*start the process to update the user info and valida if it has name and last name*/
-    updateSettings() {
-        var controls = [];
-        controls = document.getElementsByClassName('settings-data');
-        var controlUserName = [];
-        $(".errorStyle").remove();
-        controlUserName.push(controls[0]);
-        if (!Components.validateControls(controlUserName)) {
-            var userBo = new BO_User();
-            if (userBo.updateSettingsUser(controls)) {
-                this.goStart();
-            } else {
-                $("#UserNameErrorContainer").append("<span class='errorStyle'>you should have a name and last name</span>");
-            }
-        }
-    },
+    // updateSettings() {
+    // var controls = [];
+    // controls = document.getElementsByClassName('settings-data');
+    // var controlUserName = [];
+    // $(".errorStyle").remove();
+    // controlUserName.push(controls[0]);
+    // if (!Components.validateControls(controlUserName)) {
+    //     var userBo = new BO_User();
+    //     if (userBo.updateSettingsUser(controls)) {
+    //         this.goStart();
+    //     } else {
+    //         $("#UserNameErrorContainer").append("<span class='errorStyle'>you should have a name and last name</span>");
+    //     }
+    // }
+    // },
 
     /*start the proces to save the ride, validate the places and the inputs*/
     saveRide() {
@@ -191,14 +189,17 @@ var Rides = {
             if (!Components.validateControls(controls)) {
                 if ((this.placeTo != null && this.placeTo != "") && (this.placeFrom != null && this.placeFrom != "")) {
                     if (this.placeTo.geometry.location.lat() != this.placeFrom.geometry.location.lat() && this.placeTo.geometry.location.lng() != this.placeFrom.geometry.location.lng()) {
-                        if (Components.validateCountry(this.placeFrom,this.placeTo)) {
-                          var rideBo = new BO_Ride();
-                          rideBo.saveRide(rideBo.createRide(controls, this.placeFrom, this.placeTo, document.getElementById('from').value, document.getElementById('to').value, checkedDays, null));
-                          this.clearControlsRide();
-                          this.activeItem(document.getElementById('dashboard'));
-                          return;
+                        if (Components.validateCountry(this.placeFrom, this.placeTo)) {
+                            $.ajax({
+                                url: 'insertRide',
+                                type: 'POST',
+                                data: $('.ride').serialize(),
+                                success: function(msj) {
+                                    alert(msj);
+                                }
+                            });
                         } else {
-                          $("#placesToFind").append("<span class='errorStyle'>The country is diferent in both places</span>");
+                            $("#placesToFind").append("<span class='errorStyle'>The country is diferent in both places</span>");
                         }
                     } else {
                         $("#placesToFind").append("<span class='errorStyle'>The places must be diferent</span>");
@@ -253,23 +254,23 @@ var Rides = {
 
     /*load the table with user's rides and display it*/
     //parameter pObjsLocal : list of rides to display in the table
-    loadTableRides(pObjsLocal) {
-        if (pObjsLocal != null || pObjsLocal.length > 0) {
-            var table = document.querySelector('tbody');
-            var user = JSON.parse(sessionStorage.getItem('User-Logged'));
-            var cellBtns;
-            while (table.hasChildNodes()) {
-                table.removeChild(table.firstChild);
-            }
-            for (var i = 0; i < pObjsLocal.length; i++) {
-                if (pObjsLocal[i].User == user.Id) {
-                    cellBtns = Components.addRowTable(pObjsLocal[i], table);
-                    Components.createButtonsRow("table-btns delete", cellBtns, table, pObjsLocal[i], 0);
-                    Components.createButtonsRow("table-btns update", cellBtns, table, pObjsLocal[i], 1);
-                }
-            } //for end
-        } //if end
-    },
+    // loadTableRides(pObjsLocal) {
+    // if (pObjsLocal != null || pObjsLocal.length > 0) {
+    //     var table = document.querySelector('tbody');
+    //     var user = JSON.parse(sessionStorage.getItem('User-Logged'));
+    //     var cellBtns;
+    //     while (table.hasChildNodes()) {
+    //         table.removeChild(table.firstChild);
+    //     }
+    //     for (var i = 0; i < pObjsLocal.length; i++) {
+    //         if (pObjsLocal[i].User == user.Id) {
+    //             cellBtns = Components.addRowTable(pObjsLocal[i], table);
+    //             Components.createButtonsRow("table-btns delete", cellBtns, table, pObjsLocal[i], 0);
+    //             Components.createButtonsRow("table-btns update", cellBtns, table, pObjsLocal[i], 1);
+    //         }
+    //     } //for end
+    // } //if end
+    // },
 
     /*create the buttons in rides form, it depends of the situation(new one or update one)*/
     createBtnRides(clas, pid, val, idParent, ride) {
@@ -290,7 +291,7 @@ var Rides = {
                 break;
             case 'update-ride':
                 input.addEventListener("click", function() {
-                    Rides.updateRide(ride);
+                    // Rides.updateRide(ride);
                 }, false);
                 break;
             case 'cancel-ride':

@@ -11,16 +11,17 @@ class User extends CI_Controller
         if ($session == null) {
             $this->load->view('User/login');
         } else {
-            $this->load->view('User/panel-user');
+            redirect('Ride/');
         }
     }
     public function logout()
     {
         $this->session->set_userdata('user', null);
-        redirect('index.php/User/');
+        redirect('/');
     }
     public function authenticate()
     {
+        $error = array('respuesta' => false);
         $name = $this->input->post('name');
         $pass = $this->input->post('password');
         $this->load->model('User_model');
@@ -29,47 +30,37 @@ class User extends CI_Controller
         if (sizeof($result) > 0) {
             $this->session->set_userdata('user', $result[0]);
             $session = $this->session->set_flashdata('login', true);
-            redirect('index.php/User/');
+            $error['respuesta'] = true;
+            echo json_encode($error);
+            redirect('User/');
         } else {
-            $error = $this->session->set_flashdata('error', 'Username and Password are incorrect');
-            $data['error'] = $error;
-            $this->load->view('User/login', $data);
+            echo json_encode($error);
         }
     }
     public function insertUser()
     {
-
-        // $error = array('respuesta' => false);
+        $error = array('respuesta' => false);
         $data = array(
                 'name' => $this->input->post('name'),
                 'last_name' => $this->input->post('last_name'),
                 'phone' => $this->input->post('phone'),
                 'user_name' => $this->input->post('user_name'),
-                'password' => $this->input->post('password')
+                'password' => $this->input->post('password'),
           );
-
-       $this->load->model('User_model');
-       $this->load->library('form_validation');
-
-
-       $this->form_validation->set_rules('name','Name','trim|required|min_length[6]');
-       $this->form_validation->set_rules('last_name','Last Name','trim|required|min_length[6]');
-       $this->form_validation->set_rules('phone','Phone','trim|required|numeric|min_length[8]');
-       $this->form_validation->set_rules('password','Password','trim|required|matches[repeat]|min_length[6]');
-       $this->form_validation->set_rules('repeat','Repeat Password','trim|required|min_length[6]');
-       $this->form_validation->set_message('required','%s is required');
-       $this->form_validation->set_message('min_length','%s Minimum Lenght are 6');
-       $this->form_validation->set_message('numeric','The Phone only can be numbers');
+        $this->load->model('User_model');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('name', 'Name', 'trim|required');
+        $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required');
+        $this->form_validation->set_rules('phone', 'Phone', 'trim|required|numeric');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|matches[repeat]');
+        $this->form_validation->set_rules('repeat', 'Repeat Password', 'trim|required');
 
         if ($this->form_validation->run()) {
             $this->User_model->insertUser($data);
-            // $error['respuesta'] = true;
-
+            $error['respuesta'] = true;
+            echo json_encode($error);
         } else {
-          //  $error['incorrect'] = array('name','last_name','phone','user_name','password','repeat');
-              redirect('index.php/User');
+            echo json_encode($error);
         }
-
-        // echo json_encode($error);
     }
 }

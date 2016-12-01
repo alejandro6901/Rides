@@ -10,7 +10,13 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body >
+<?php
 
+
+if (isset($_SESSION['user'])) {
+    $user = $_SESSION['user'];
+}
+ ?>
     <section class="container-fluid">
       <section class="row">
         <div class="col-md-4 col-sm-12">
@@ -40,11 +46,11 @@
                     <img src="<?php echo base_url(); ?>assets/css/images/user.png" alt="" />
                     </div>
                     <div class="name-user-container">
-                      <span id="userName">theKingInTheNorth</span>
+                      <span id="userName"><?php echo $user['user_name'] ?></span>
                     </div>
                   </div>
                 </li>
-                <form class="" action="<?php echo base_url()."index.php/User/logout"?>" method="post">
+                <form class="" action="<?php echo base_url().'index.php/User/logout'?>" method="post">
                     <li><input id="STYLE" class="op-menu" type="submit" name="name" value="Logout"></li>
                 </form>
               </ul>
@@ -102,7 +108,7 @@
       </div>
   </div>
   </section>
-  <form class="container-fluid filter item-menu come-up" id="rides">
+  <form class="container-fluid filter item-menu come-up ride" id="rides" >
     <div class="row row-titule">
       <div class="titule">
         <h4>rides</h4>
@@ -115,25 +121,25 @@
         </div>
         <div class="control-input col-md-6">
           <label class="frm-label-style" for="">Ride Name</label>
-          <input class="frm-input-text-style rides-data" type="text" name="name" value="">
+          <input class="frm-input-text-style rides-data" type="text" name="ride_name" value="">
         </div>
         <div class="control-input col-md-12">
           <div class="two-controls">
               <div class="row" id="placesToFind">
                 <div class="col-md-6"id="cont-start-location">
                   <label class="frm-label-style" for="">start location</label>
-                  <input class="frm-input-text-style rides-data" id="from" type="text" name="name" value="">
+                  <input class="frm-input-text-style rides-data" id="from" type="text" name="start" value="">
                 </div>
                 <div class="col-md-6"id="cont-end-location">
                   <label class="frm-label-style" for="">to</label>
-                  <input class="frm-input-text-style rides-data" id="to"type="text" name="name" value="">
+                  <input class="frm-input-text-style rides-data" id="to"type="text" name="to" value="">
                 </div>
               </div>
           </div>
         </div>
         <div class="control-input col-md-12">
           <label class="frm-label-style" for="">Description</label>
-          <textarea class="frm-input-text-style rides-data" name="name" rows="8" cols="40"></textarea>
+          <textarea class="frm-input-text-style rides-data" name="description" rows="8" cols="40"></textarea>
         </div>
       </div>
       <div class="col-md-6 col-sm-12 container-controls">
@@ -145,11 +151,11 @@
               <div class="row" id="scheduleCont">
                 <div class="col-md-6">
                   <label class="frm-label-style" for="">departure</label>
-                  <input class="frm-input-text-style rides-data" id="dep" type="time" name="name" value="">
+                  <input class="frm-input-text-style rides-data" id="dep" type="time" name="departure" value="">
                 </div>
                 <div class="col-md-6">
                   <label class="frm-label-style" for="">estimated arrival</label>
-                  <input class="frm-input-text-style rides-data" id="ari" type="time" name="name" value="">
+                  <input class="frm-input-text-style rides-data" id="ari" type="time" name="arrival" value="">
                 </div>
               </div>
           </div>
@@ -162,31 +168,31 @@
           <div class="containerd">
             <div class="checkbox-container">
               <label class="frm-label-style" for="sunday">sunday</label>
-              <input type="checkbox" id="check-sunday" name="day" value="sunday" class="chk-days">
+              <input type="checkbox" id="check-sunday" name="days[]" value="sunday" class="chk-days">
             </div>
             <div class="checkbox-container">
               <label class="frm-label-style" for="monday">monday</label>
-              <input type="checkbox" id="check-monday" name="day" value="monday" class="chk-days">
+              <input type="checkbox" id="check-monday" name="days[]" value="monday" class="chk-days">
             </div>
             <div class="checkbox-container">
               <label class="frm-label-style" for="tuesday">tuesday</label>
-              <input type="checkbox" id="check-tuesday" name="day" value="tuesday" class="chk-days">
+              <input type="checkbox" id="check-tuesday" name="days[]" value="tuesday" class="chk-days">
             </div>
             <div class="checkbox-container">
               <label class="frm-label-style" for="wednesday">wednesday</label>
-              <input type="checkbox" id="check-wednesday" name="day" value="wednesday" class="chk-days">
+              <input type="checkbox" id="check-wednesday" name="days[]" value="wednesday" class="chk-days">
             </div>
             <div class="checkbox-container">
               <label class="frm-label-style" for="thursday">thursday</label>
-              <input type="checkbox" id="check-thursday" name="day" value="thursday" class="chk-days">
+              <input type="checkbox" id="check-thursday" name="days[]" value="thursday" class="chk-days">
             </div>
             <div class="checkbox-container">
               <label class="frm-label-style" for="friday">friday</label>
-              <input type="checkbox" id="check-friday" name="day" value="friday" class="chk-days">
+              <input type="checkbox" id="check-friday" name="days[]" value="friday" class="chk-days">
             </div>
             <div class="checkbox-container">
               <label class="frm-label-style" for="saturday">saturday</label>
-              <input type="checkbox" id="check-saturday" name="day" value="saturday" class="chk-days">
+              <input type="checkbox" id="check-saturday" name="days[]" value="saturday" class="chk-days">
             </div>
           </div>
         </div>
@@ -211,7 +217,7 @@
         <div class="col-md-6 col-sm-12 container-controls">
           <div class="control-input col-md-6">
             <label class="frm-label-style" for="">Full Name</label>
-            <input class="frm-input-text-style settings-data" id="name" type="text" name="name" placeholder="my name is...">
+            <input class="frm-input-text-style settings-data" id="name" type="text" name="full_name" placeholder="my name is...">
             <div id="UserNameErrorContainer"></div>
           </div>
         </div>
@@ -220,14 +226,14 @@
         <div class="col-md-6 col-sm-12 container-controls">
           <div class="control-input col-md-6">
             <label class="frm-label-style" for="">Speed average</label>
-            <input class="frm-input-text-style settings-data" id="speed" type="number" name="name" placeholder="you could add something here..">
+            <input class="frm-input-text-style settings-data" id="speed" type="number" name="average" placeholder="you could add something here..">
           </div>
         </div>
       </div>
       <div class="row">
         <div class="control-input col-md-12">
           <label class="frm-label-style" for="">About me</label>
-          <textarea class="frm-input-text-style settings-data" id="about-me" name="name" rows="8" cols="40" placeholder="we'd like to know something about you :)"></textarea>
+          <textarea class="frm-input-text-style settings-data" id="about-me" name="about_me" rows="8" cols="40" placeholder="we'd like to know something about you :)"></textarea>
         </div>
       </div>
     </section>
@@ -237,7 +243,8 @@
           <input class="frm-btn-style" type="button" name="name" id="cancel-settings" value="cancel">
         </div>
         <div class="col-md-6 container-frm-btn">
-          <input class="frm-btn-style" type="button" name="name" id="save-settings" value="save">
+          <input class="frm-btn-style" type="submit" name="save" id="save-settings" value="">
+
         </div>
       </div>
     </div>
