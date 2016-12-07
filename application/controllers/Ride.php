@@ -10,24 +10,43 @@ class Ride extends CI_Controller
     }
     public function insertRide()
     {
-
+      $error = array('respuesta' => false);
+      $user = $_SESSION['user'];
       $days = '';
-      $id = $this->input->post('save');
+      $id = $this->input->post('ride_name');
+
       foreach ($_POST['days'] as $day) {
-         $days .= $day;
+         $days .= $day.'-';
       }
+      $days = trim($days,'-');
+
       $data = array(
-              'ride_name' => $this->input->post('ride_name'),
-              'start' => $this->input->post('start'),
-              'to' => $this->input->post('to'),
+              'id_user' => $user['id'],
+              'name' => $this->input->post('ride_name'),
+              'place_from' => $this->input->post('start'),
+              'place_to' => $this->input->post('to'),
               'description' => $this->input->post('description'),
+              'days' => $days,
               'departure' => $this->input->post('departure'),
-              'arrival' => $this->input->post('arrival'),
-              'days' => $days
+              'arrival' => $this->input->post('arrival')
         );
       $this->load->model('Ride_model');
-      
-        // $this->Ride_model->insertUser($data);
-      var_dump($id);
+      $result = $this->Ride_model->insertRide($data);
+
+      if ($result > 0) {
+      $error['respuesta'] = true;
+      echo json_encode($error);
+    }else{
+        echo json_encode($error);
+    }
+
+    }
+    public function getRides()
+    {
+        $user = $_SESSION['user'];
+        $this->load->model('Ride_model');
+        $result = $this->Ride_model->getRides($user['id']);
+        
+
     }
 }

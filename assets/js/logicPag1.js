@@ -154,18 +154,21 @@ var PublicApp = {
 
     /*start the process to login the user*/
     signIn() {
+        $(".errorStyle").remove();
         $.ajax({
             url: 'User/insertUser',
             type: 'POST',
             data: $('#form').serialize(),
             success: function(msj) {
                 var json = JSON.parse(msj);
-
                 if (json.respuesta) {
                     PublicApp.hideSign();
-                } else {
-                    $("#passErrorContainer").append("<span class='errorStyle'>Empty Fields</span>");
-                }
+                } else if (json.invaliddata) {
+                      $("#ErrorContainer").append("<span class='errorStyle'>Empty Fields</span>");
+
+                  }else {
+                     $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
+                  }
 
             }
 
@@ -199,6 +202,7 @@ var PublicApp = {
 
     /*start the process to login the user and if it's ok, it will redirect to principal app*/
     logIn() {
+      $(".errorStyle").remove();
         $.ajax({
             url: 'authenticate',
             type: 'POST',
@@ -206,12 +210,16 @@ var PublicApp = {
             success: function(msj) {
                 var json = JSON.parse(msj);
                 if (json.respuesta) {
-                    PublicApp.hideLogin();
-                } else {
-                    $("#LoginErrorContainer").append("<span class='errorStyle'>Empty Fields</span>");
+                    location.href='User/';
+                } else if (json.invaliddata) {
+                      $("#LoginErrorContainer").append("<span class='errorStyle'>Empty Fields</span>");
+
+                  }else {
+                     $("#LoginErrorContainer").append("<span class='errorStyle'>User and password are incorrects </span>");
+                  }
                 }
 
-            }
+
         });
 
 

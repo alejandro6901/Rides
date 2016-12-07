@@ -15,6 +15,7 @@
 
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
+
 }
  ?>
     <section class="container-fluid">
@@ -108,7 +109,7 @@ if (isset($_SESSION['user'])) {
       </div>
   </div>
   </section>
-  <form class="container-fluid filter item-menu come-up ride" id="rides" >
+  <form class="container-fluid filter item-menu come-up ride" id="form-rides">
     <div class="row row-titule">
       <div class="titule">
         <h4>rides</h4>
@@ -121,18 +122,18 @@ if (isset($_SESSION['user'])) {
         </div>
         <div class="control-input col-md-6">
           <label class="frm-label-style" for="">Ride Name</label>
-          <input class="frm-input-text-style rides-data" type="text" name="ride_name" value="">
+          <input class="frm-input-text-style rides-data" type="text" name="ride_name">
         </div>
         <div class="control-input col-md-12">
           <div class="two-controls">
               <div class="row" id="placesToFind">
                 <div class="col-md-6"id="cont-start-location">
                   <label class="frm-label-style" for="">start location</label>
-                  <input class="frm-input-text-style rides-data" id="from" type="text" name="start" value="">
+                  <input class="frm-input-text-style rides-data" id="from" type="text" name="start">
                 </div>
                 <div class="col-md-6"id="cont-end-location">
                   <label class="frm-label-style" for="">to</label>
-                  <input class="frm-input-text-style rides-data" id="to"type="text" name="to" value="">
+                  <input class="frm-input-text-style rides-data" id="to"type="text" name="to">
                 </div>
               </div>
           </div>
@@ -151,11 +152,11 @@ if (isset($_SESSION['user'])) {
               <div class="row" id="scheduleCont">
                 <div class="col-md-6">
                   <label class="frm-label-style" for="">departure</label>
-                  <input class="frm-input-text-style rides-data" id="dep" type="time" name="departure" value="">
+                  <input class="frm-input-text-style rides-data" id="dep" type="time" name="departure">
                 </div>
                 <div class="col-md-6">
                   <label class="frm-label-style" for="">estimated arrival</label>
-                  <input class="frm-input-text-style rides-data" id="ari" type="time" name="arrival" value="">
+                  <input class="frm-input-text-style rides-data" id="ari" type="time" name="arrival">
                 </div>
               </div>
           </div>
@@ -192,7 +193,7 @@ if (isset($_SESSION['user'])) {
             </div>
             <div class="checkbox-container">
               <label class="frm-label-style" for="saturday">saturday</label>
-              <input type="checkbox" id="check-saturday" name="days[]" value="saturday" class="chk-days">
+              <input type="checkbox" id="check-saturday" name="days[]" value="saturday"  class="chk-days">
             </div>
           </div>
         </div>
@@ -201,7 +202,8 @@ if (isset($_SESSION['user'])) {
         <div class="container">
           <div class="col-md-6 container-frm-btn" id="cancel-back">
           </div>
-          <div class="col-md-6 container-frm-btn" id="save-update">
+          <div  class="col-md-6 container-frm-btn" id="save-update">
+          <input type="submit" name="name" value="" class="col-md-6 container-frm-btn save-ride" id="save-update">
           </div>
         </div>
       </div>
@@ -233,6 +235,7 @@ if (isset($_SESSION['user'])) {
       <div class="row">
         <div class="control-input col-md-12">
           <label class="frm-label-style" for="">About me</label>
+
           <textarea class="frm-input-text-style settings-data" id="about-me" name="about_me" rows="8" cols="40" placeholder="we'd like to know something about you :)"></textarea>
         </div>
       </div>
@@ -243,7 +246,9 @@ if (isset($_SESSION['user'])) {
           <input class="frm-btn-style" type="button" name="name" id="cancel-settings" value="cancel">
         </div>
         <div class="col-md-6 container-frm-btn">
-          <input class="frm-btn-style" type="submit" name="save" id="save-settings" value="">
+
+          <input class="frm-btn-style" type="submit" name="name" id="save-settings" value="">
+
 
         </div>
       </div>

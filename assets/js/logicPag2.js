@@ -64,21 +64,21 @@ var Rides = {
             }
         }
     },
-
-    /*logout the user*/
-    logout() {
-        var userBo = new BO_User();
-        userBo.logOut();
-        location.href = "./index.html";
-    },
+    //
+    // /*logout the user*/
+    // logout() {
+    //     var userBo = new BO_User();
+    //     userBo.logOut();
+    //     location.href = "./index.html";
+    // },
 
     /*load the user information and display the userName*/
-    loadUserData() {
-        var userBo = new BO_User();
-        var user;
-        user = userBo.userCurrentData();
-        $('#userName').text('Hi\n' + user.ToString());
-    },
+    // loadUserData() {
+    //     var userBo = new BO_User();
+    //     var user;
+    //     user = userBo.userCurrentData();
+    //     $('#userName').text('Hi\n' + user.ToString());
+    // },
 
     /*display a panel*/
     //parameter e: id of a element HTML
@@ -90,28 +90,32 @@ var Rides = {
         }
         var items = document.getElementsByClassName('item-menu');
         for (var i = 0; i < items.length; i++) {
-            if (items[i].id == e.id) {
-                items[i].classList.add('come-down');
-                items[i].classList.remove('come-up');
-                switch (e.id) {
-                    case 'dashboard':
+          if (items[i].id.indexOf(e.id)>-1) {
+              items[i].classList.add('come-down');
+              items[i].classList.remove('come-up');
+              switch (e.id) {
+                case 'dashboard':
+                    Components.fixedTable();
 
-                        Components.fixedTable();
-                        break;
-                    case 'rides':
-                        this.createBtnRides('frm-btn-style', 'cancel-ride', 'cancel', 'cancel-back', null);
-                        this.createBtnRides('frm-btn-style', 'save-ride', 'save', 'save-update', null);
-                        this.clearControlsRide();
-                        break;
-                    case 'settings':
-                        // this.loadSettingsUser();
-                        break;
-                    default:
-                }
-            } else {
-                items[i].classList.remove('come-down');
-                items[i].classList.add('come-up');
-            }
+                    break;
+                case 'rides':
+                    this.createBtnRides('frm-btn-style', 'cancel-ride', 'cancel', 'cancel-back', null);
+                    this.createBtnRides('frm-btn-style', 'save-ride', 'save', 'save-update', null);
+                    this.clearControlsRide();
+
+                    break;
+                case 'settings':
+                    // this.loadSettingsUser();
+
+                    break;
+                default:
+                break;
+              }
+          } else {
+              items[i].classList.remove('come-down');
+              items[i].classList.add('come-up');
+          }
+
         }
     },
 
@@ -193,9 +197,15 @@ var Rides = {
                             $.ajax({
                                 url: 'insertRide',
                                 type: 'POST',
-                                data: $('.ride').serialize(),
+                                data: $('#form-rides').serialize(),
                                 success: function(msj) {
-                                    alert(msj);
+                                  var json = JSON.parse(msj);
+                                  if (json.respuesta) {
+                                      Rides.activeItem(document.getElementById('dashboard'));
+                                  } else  {
+                                        $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
+                                    }
+
                                 }
                             });
                         } else {
@@ -253,24 +263,23 @@ var Rides = {
     },
 
     /*load the table with user's rides and display it*/
-    //parameter pObjsLocal : list of rides to display in the table
-    // loadTableRides(pObjsLocal) {
-    // if (pObjsLocal != null || pObjsLocal.length > 0) {
-    //     var table = document.querySelector('tbody');
-    //     var user = JSON.parse(sessionStorage.getItem('User-Logged'));
-    //     var cellBtns;
-    //     while (table.hasChildNodes()) {
-    //         table.removeChild(table.firstChild);
-    //     }
-    //     for (var i = 0; i < pObjsLocal.length; i++) {
-    //         if (pObjsLocal[i].User == user.Id) {
-    //             cellBtns = Components.addRowTable(pObjsLocal[i], table);
-    //             Components.createButtonsRow("table-btns delete", cellBtns, table, pObjsLocal[i], 0);
-    //             Components.createButtonsRow("table-btns update", cellBtns, table, pObjsLocal[i], 1);
-    //         }
-    //     } //for end
-    // } //if end
-    // },
+    //parameter rides : list of rides to display in the table
+    loadTableRides(rides) {
+
+        var table = document.querySelector('tbody');
+        var user = JSON.parse(sessionStorage.getItem('User-Logged'));
+        var cellBtns;
+        while (table.hasChildNodes()) {
+            table.removeChild(table.firstChild);
+        }
+        for (var i = 0; i < rides.length; i++) {
+                cellBtns = Components.addRowTable(rides[i], table);
+                Components.createButtonsRow("table-btns delete", cellBtns, table, rides[i], 0);
+                Components.createButtonsRow("table-btns update", cellBtns, table, rides[i], 1);
+
+        } //for end
+
+    },
 
     /*create the buttons in rides form, it depends of the situation(new one or update one)*/
     createBtnRides(clas, pid, val, idParent, ride) {

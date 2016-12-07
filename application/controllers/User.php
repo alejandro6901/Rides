@@ -21,25 +21,27 @@ class User extends CI_Controller
     }
     public function authenticate()
     {
-        $error = array('respuesta' => false);
+        $error = array('respuesta' => false, 'invaliddata' => false);
         $name = $this->input->post('name');
         $pass = $this->input->post('password');
         $this->load->model('User_model');
         $result = $this->User_model->getUser($name, $pass);
-
-        if (sizeof($result) > 0) {
+        if ($name == '' || $pass == '') {
+            $error['invaliddata'] = true;
+            echo json_encode($error);
+        } elseif (sizeof($result) > 0) {
             $this->session->set_userdata('user', $result[0]);
             $session = $this->session->set_flashdata('login', true);
             $error['respuesta'] = true;
-            echo json_encode($error);
-            redirect('User/');
+            echo json_encode($error);            
         } else {
             echo json_encode($error);
         }
     }
+
     public function insertUser()
     {
-        $error = array('respuesta' => false);
+        $error = array('respuesta' => false, 'invaliddata' => false);
         $data = array(
                 'name' => $this->input->post('name'),
                 'last_name' => $this->input->post('last_name'),
@@ -60,6 +62,7 @@ class User extends CI_Controller
             $error['respuesta'] = true;
             echo json_encode($error);
         } else {
+          $error['invaliddata'] = true;
             echo json_encode($error);
         }
     }

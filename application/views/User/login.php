@@ -52,7 +52,7 @@
             </div>
         </section>
         <section class="items-principal-page container search-rides-container slide-down">
-            <form class="container-search-ride" action="index.html" method="post">
+            <form class="container-search-ride">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <label class="label-public-acces" for="from">from</label>
@@ -115,7 +115,7 @@
                         <div id="LoginErrorContainer"></div>
                     </div>
                     <div class="item-popup last">
-                        <input type="submit" class="btn-style-in" id="login"  value="Login">
+                        <input type="button" class="btn-style-in" id="login"  value="Login">
                         <p class="other-op-log-sign">Not an user?<a href="#" id="hide-login">register here</a></p>
                     </div>
                 </form>
@@ -146,7 +146,7 @@
                     <div class="item-popup">
                         <label class="label-style" for="">User name</label>
                         <input class="signin-data input-text-style" required id="user-name" type="text" name="user_name" placeholder="theWolf123">
-                        <div id="UserNameErrorContainer"></div>
+
                     </div>
                     <div class="item-popup">
                         <label class="label-style" for="">password</label>
@@ -155,12 +155,13 @@
                     <div class="item-popup">
                         <label class="label-style" for="">repeat Password</label>
                         <input class="signin-data input-text-style" required id="pass-2" type="password" name="repeat" placeholder="...your password">
-                        <div id="passErrorContainer"></div>
                     </div>
+                        <div id="ErrorContainer"></div>
                     <div class="item-popup last">
                         <input type="submit" class="btn-style-in" id="register"  name="name" value="register">
                         <p class="other-op-log-sign">Already an user?<a id="hide-signin">Login here</a></p>
                     </div>
+
                </form>
             </div>
         </div>
