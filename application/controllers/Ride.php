@@ -43,10 +43,27 @@ class Ride extends CI_Controller
     }
     public function getRides()
     {
+        $message = array('respuesta' => false,'data' =>false);
         $user = $_SESSION['user'];
         $this->load->model('Ride_model');
         $result = $this->Ride_model->getRides($user['id']);
-        
 
+        if ($result > 0) {
+          $message['respuesta'] = true;
+         $message['data'] = $result;
+          echo json_encode($message);
+        }
+
+    }
+    public function deleteRide()
+    {
+      $message = array('respuesta' => false);
+      $user = $_SESSION['user'];
+      $this->load->model('Ride_model');
+       $result = $this->Ride_model->deleteRide($_POST['id'],$user['id']);
+      if ($result > 0) {
+        $message['respuesta'] = true;
+        echo json_encode($message);
+      }
     }
 }

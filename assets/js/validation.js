@@ -78,13 +78,13 @@ var Components = {
             cell = row.insertCell(i);
             switch (i) {
                 case 0:
-                    cell.innerHTML = ride.Name;
+                    cell.innerHTML = ride.name;
                     break;
                 case 1:
-                    cell.innerHTML = ride.StartLocation.PlaceName;
+                    cell.innerHTML = ride.place_to;
                     break;
                 case 2:
-                    cell.innerHTML = ride.EndLocation.PlaceName;
+                    cell.innerHTML = ride.place_from;
                     break;
             }
         }
@@ -144,6 +144,6 @@ var Components = {
         }
     }
 
-  
+
 }
 Components.showLog();

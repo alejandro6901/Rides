@@ -95,8 +95,21 @@ var Rides = {
               items[i].classList.remove('come-up');
               switch (e.id) {
                 case 'dashboard':
-                    Components.fixedTable();
+                $.ajax({
+                    url: 'getRides',
+                    type: 'POST',
+                    success: function(msj) {
+                      console.log(msj);
+                      var json = JSON.parse(msj);
+                      if (json.respuesta) {
+                          Rides.loadTableRides(json.data);
+                      } else {
+                          $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
+                      }
 
+                    }
+                });
+                    Components.fixedTable();
                     break;
                 case 'rides':
                     this.createBtnRides('frm-btn-style', 'cancel-ride', 'cancel', 'cancel-back', null);
@@ -202,9 +215,9 @@ var Rides = {
                                   var json = JSON.parse(msj);
                                   if (json.respuesta) {
                                       Rides.activeItem(document.getElementById('dashboard'));
-                                  } else  {
-                                        $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
-                                    }
+                                  } else {
+                                      $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
+                                  }
 
                                 }
                             });
@@ -267,7 +280,6 @@ var Rides = {
     loadTableRides(rides) {
 
         var table = document.querySelector('tbody');
-        var user = JSON.parse(sessionStorage.getItem('User-Logged'));
         var cellBtns;
         while (table.hasChildNodes()) {
             table.removeChild(table.firstChild);
@@ -366,14 +378,21 @@ var Rides = {
     /*start the process to delete a ride*/
     //parameter ride: ride that has the action
     confirmDeleteItem(ride) {
-        var rideBo = new BO_Ride();
-        if (rideBo.deleteRide(ride, rideBo)) {
-            var rides = rideBo.loadRides();
-            this.loadTableRides(rides);
-            Components.fixedTable();
-        } else {
-            alert("we couldn't delete " + ride.GetName());
-        }
+      $.ajax({
+          url: 'deleteRide',
+          type: 'POST',
+          data: ride,
+          success: function(msj) {
+             console.log(msj);
+            var json = JSON.parse(msj);
+            if (json.respuesta) {
+                Rides.activeItem(document.getElementById('dashboard'));
+            } else {
+                $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
+            }
+
+          }
+      });
         //esconde el popup
         this.showPopup();
     },

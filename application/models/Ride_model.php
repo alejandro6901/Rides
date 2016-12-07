@@ -10,7 +10,7 @@ class Ride_model extends CI_Model
 
    public function insertRide($data)
    {
-     $query = $this->db->insert('rides',$data);
+     $this->db->insert('rides',$data);
      return $this->db->affected_rows();
    }
 
@@ -18,6 +18,11 @@ class Ride_model extends CI_Model
    {
        $query = $this->db->get_where('rides',array('id_user' => $id));
        return $query->result_array();
+   }
+   public function deleteRide($id_ride,$id)
+   {
+      $this->db->delete('rides',array('id' => $id_ride,'id_user' => $id));
+       return $this->db->affected_rows();
    }
 
 }
