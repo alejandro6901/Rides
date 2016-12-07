@@ -4,6 +4,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User extends CI_Controller
 {
+    // public function __construct()
+    // {
+    //     parent::__construct();
+    //
+    //     if (!isset($_SESSION['user'])) {
+    //       if (isset($_SESSION['user'])) {
+    //           $user = $_SESSION['user'];
+    //
+    //       }
+    //         redirect('/');
+    //     }else{
+    //       redirect('Ride/');
+    //     }
+    // }
     public function index()
     {
         $session = $this->session->flashdata('login');
@@ -33,7 +47,7 @@ class User extends CI_Controller
             $this->session->set_userdata('user', $result[0]);
             $session = $this->session->set_flashdata('login', true);
             $error['respuesta'] = true;
-            echo json_encode($error);            
+            echo json_encode($error);
         } else {
             echo json_encode($error);
         }
@@ -62,7 +76,7 @@ class User extends CI_Controller
             $error['respuesta'] = true;
             echo json_encode($error);
         } else {
-          $error['invaliddata'] = true;
+            $error['invaliddata'] = true;
             echo json_encode($error);
         }
     }

@@ -210,8 +210,9 @@ var Rides = {
                             $.ajax({
                                 url: 'insertRide',
                                 type: 'POST',
-                                data: $('#form-rides').serialize(),
+                                data: JSON.stringify({ID:'pene y concha',inputs: $('#form-rides').serialize()}),
                                 success: function(msj) {
+                                  console.log(msj);
                                   var json = JSON.parse(msj);
                                   if (json.respuesta) {
                                       Rides.activeItem(document.getElementById('dashboard'));

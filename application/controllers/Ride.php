@@ -4,6 +4,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Ride extends CI_Controller
 {
+  // public function __construct()
+  // {
+  //     parent::__construct();
+  //     if (!isset($_SESSION['user'])) {
+  //         redirect('/');
+  //     }
+  //
+  // }
     public function index()
     {
         $this->load->view('Profile/panel-user');
@@ -13,6 +21,7 @@ class Ride extends CI_Controller
       $error = array('respuesta' => false);
       $user = $_SESSION['user'];
       $days = '';
+      var_dump(json_decode($_POST['inputs'])); die;
       $id = $this->input->post('ride_name');
 
       foreach ($_POST['days'] as $day) {
