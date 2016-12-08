@@ -99,12 +99,11 @@ var Rides = {
                     url: 'getRides',
                     type: 'POST',
                     success: function(msj) {
-                      console.log(msj);
                       var json = JSON.parse(msj);
                       if (json.respuesta) {
                           Rides.loadTableRides(json.data);
                       } else {
-                          $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
+                          $("#ErrorContainer").append("<span class='errorStyle'>Error</span>");
                       }
 
                     }
@@ -115,11 +114,9 @@ var Rides = {
                     this.createBtnRides('frm-btn-style', 'cancel-ride', 'cancel', 'cancel-back', null);
                     this.createBtnRides('frm-btn-style', 'save-ride', 'save', 'save-update', null);
                     this.clearControlsRide();
-
                     break;
                 case 'settings':
-                    // this.loadSettingsUser();
-
+                    this.loadSettingsUser();
                     break;
                 default:
                 break;
@@ -159,9 +156,23 @@ var Rides = {
     },
 
     /*load the user info on the settings panel*/
-    // loadSettingsUser() {
+    loadSettingsUser() {
+      // $.ajax({
+      //     url: 'getRides',
+      //     type: 'POST',
+      //     success: function(msj) {
+      //       console.log(msj);
+      //       var json = JSON.parse(msj);
+      //       if (json.respuesta) {
+      //           Rides.loadTableRides(json.data);
+      //       } else {
+      //           $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
+      //       }
+      //
+      //     }
+      // });
+
     // var controls = document.getElementsByClassName('settings-data');
-    // var userBo = new BO_User();
     // var user;
     // user = userBo.userCurrentData();
     // for (var i = 0; i < controls.length; i++) {
@@ -177,7 +188,7 @@ var Rides = {
     //             break;
     //     }
     // }
-    // },
+    },
 
     /*start the process to update the user info and valida if it has name and last name*/
     // updateSettings() {
@@ -210,14 +221,13 @@ var Rides = {
                             $.ajax({
                                 url: 'insertRide',
                                 type: 'POST',
-                                data: JSON.stringify({ID:'pene y concha',inputs: $('#form-rides').serialize()}),
+                                data: $('#form-rides').serialize(),
                                 success: function(msj) {
-                                  console.log(msj);
                                   var json = JSON.parse(msj);
                                   if (json.respuesta) {
                                       Rides.activeItem(document.getElementById('dashboard'));
                                   } else {
-                                      $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
+                                      $("#ErrorContainer").append("<span class='errorStyle'>Error</span>");
                                   }
 
                                 }
@@ -313,6 +323,7 @@ var Rides = {
                 break;
             case 'update-ride':
                 input.addEventListener("click", function() {
+                  alert('HOLAAA');
                     // Rides.updateRide(ride);
                 }, false);
                 break;
@@ -384,7 +395,7 @@ var Rides = {
           type: 'POST',
           data: ride,
           success: function(msj) {
-             console.log(msj);
+
             var json = JSON.parse(msj);
             if (json.respuesta) {
                 Rides.activeItem(document.getElementById('dashboard'));
@@ -401,25 +412,31 @@ var Rides = {
     /*call and fill rides form with the ride data*/
     //parameter ride: ride that has the action
     CallFormRides(ride) {
+
+      var daysRide = ride.days;
+      var splitD =  daysRide.split("-");
+
         Components.update = true;
         var controls = document.getElementsByClassName('rides-data');
-        var days = document.getElementsByClassName('chk-days');
-        var j = 0;
+        var day = document.getElementsByClassName('chk-days');
         this.activeItem(document.getElementById('rides'));
         this.createBtnRides('frm-btn-style', 'back-dash', 'back', 'cancel-back', null);
         this.createBtnRides('frm-btn-style', 'update-ride', 'update', 'save-update', ride);
-        controls[0].value = ride.Name;
-        controls[1].value = ride.StartLocation.Direction;
-        controls[2].value = ride.EndLocation.Direction;
-        controls[3].value = ride.Description;
-        controls[4].value = ride.Departure;
-        controls[5].value = ride.Arrival;
-        for (var i = 0; i < days.length; i++) {
-            if (days[i].value == ride.Days[j]) {
-                days[i].checked = true;
-                j++;
-            }
+        controls[0].value = ride.name;
+        controls[1].value = ride.place_from;
+        controls[2].value = ride.place_to;
+        controls[3].value = ride.description;
+        controls[4].value = ride.departure;
+        controls[5].value = ride.arrival;
+        for (var i = 0; i < day.length; i++) {
+          for (var j = 0; j < splitD.length; j++) {
+              if (day[i].value == splitD[j]) {
+                  day[i].checked = true;
+                  break;
+              }
+          }
         }
+
     },
 
     /*start the process to update a ride*/
@@ -429,7 +446,7 @@ var Rides = {
         if (checkedDays.length > 0) {
             $('.days-error-cont').remove();
             if (!Components.validateControls(controls)) {
-                var rideBo = new BO_Ride();
+                // var rideBo = new BO_Ride();
                 //this.placeTo.geometry.location.lat() != this.placeFrom.geometry.location.lat() && this.placeTo.geometry.location.lng() != this.placeFrom.geometry.location.lng()
                 if (rideBo.updateRide(rideBo.createRide(controls, this.placeFrom, this.placeTo, document.getElementById('from').value, document.getElementById('to').value, checkedDays, ride), rideBo)) {
                     //var rides = rideBo.loadRides();

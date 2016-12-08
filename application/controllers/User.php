@@ -4,20 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class User extends CI_Controller
 {
-    // public function __construct()
-    // {
-    //     parent::__construct();
-    //
-    //     if (!isset($_SESSION['user'])) {
-    //       if (isset($_SESSION['user'])) {
-    //           $user = $_SESSION['user'];
-    //
-    //       }
-    //         redirect('/');
-    //     }else{
-    //       redirect('Ride/');
-    //     }
-    // }
+
     public function index()
     {
         $session = $this->session->flashdata('login');
@@ -61,8 +48,10 @@ class User extends CI_Controller
                 'last_name' => $this->input->post('last_name'),
                 'phone' => $this->input->post('phone'),
                 'user_name' => $this->input->post('user_name'),
-                'password' => $this->input->post('password'),
+                'password' => $this->input->post('password')
           );
+          $fullname = $data['name'].' '.$data['last_name'];
+          $data['full_name'] = $fullname;
         $this->load->model('User_model');
         $this->load->library('form_validation');
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
