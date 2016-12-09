@@ -5,7 +5,6 @@ var Rides = {
 
     /*charge the user's info and add events to buttons*/
     initNameSpace() {
-
         document.getElementById('logo-container').addEventListener("click", function() {
             Rides.goStart();
         }, false);
@@ -23,9 +22,7 @@ var Rides = {
         }, false);
         this.addEventMenuItems();
         this.clock();
-
     },
-
     /*function to call rides form form dashboard*/
     callRideFrmFromDash() {
         this.activeItem(document.getElementById('rides'));
@@ -33,7 +30,6 @@ var Rides = {
         this.createBtnRides('frm-btn-style', 'save-ride', 'save', 'save-update', null);
         this.clearControlsRide();
     },
-
     /*thread to start the clock*/
     clock: function() {
         var f = new Date();
@@ -64,7 +60,7 @@ var Rides = {
             }
         }
     },
-    //
+
     // /*logout the user*/
     // logout() {
     //     var userBo = new BO_User();
@@ -105,7 +101,6 @@ var Rides = {
                       } else {
                           $("#ErrorContainer").append("<span class='errorStyle'>Error</span>");
                       }
-
                     }
                 });
                     Components.fixedTable();
@@ -157,21 +152,18 @@ var Rides = {
 
     /*load the user info on the settings panel*/
     loadSettingsUser() {
-      // $.ajax({
-      //     url: 'getRides',
-      //     type: 'POST',
-      //     success: function(msj) {
-      //       console.log(msj);
-      //       var json = JSON.parse(msj);
-      //       if (json.respuesta) {
-      //           Rides.loadTableRides(json.data);
-      //       } else {
-      //           $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
-      //       }
-      //
-      //     }
-      // });
-
+      $.ajax({
+          url: '../User/getUserSettings',
+          type: 'POST',
+          success: function(msj) {
+            var json = JSON.parse(msj);
+            console.log(json);
+            $('#name').val(json.data.name);
+            $('#last_name').val(json.data.last_name);
+            $('#speed').val(json.data.speed_average);
+            $('#about-me').val(json.data.about_me);
+          }
+      });
     // var controls = document.getElementsByClassName('settings-data');
     // var user;
     // user = userBo.userCurrentData();
@@ -191,7 +183,20 @@ var Rides = {
     },
 
     /*start the process to update the user info and valida if it has name and last name*/
-    // updateSettings() {
+    updateSettings() {
+      $.ajax({
+          url: '../User/updateUserSettings',
+          type: 'POST',
+          data:$('#form-settings').serialize(),
+          success: function(msj) {
+            var json = JSON.parse(msj);
+            if (json.respuesta) {
+               Rides.goStart();
+            } else {
+                $("#ErrorContainer").append("<span class='errorStyle'>Error</span>");
+            }
+          }
+      });
     // var controls = [];
     // controls = document.getElementsByClassName('settings-data');
     // var controlUserName = [];
@@ -205,7 +210,7 @@ var Rides = {
     //         $("#UserNameErrorContainer").append("<span class='errorStyle'>you should have a name and last name</span>");
     //     }
     // }
-    // },
+    },
 
     /*start the proces to save the ride, validate the places and the inputs*/
     saveRide() {
@@ -229,7 +234,6 @@ var Rides = {
                                   } else {
                                       $("#ErrorContainer").append("<span class='errorStyle'>Error</span>");
                                   }
-
                                 }
                             });
                         } else {
@@ -301,7 +305,6 @@ var Rides = {
                 Components.createButtonsRow("table-btns update", cellBtns, table, rides[i], 1);
 
         } //for end
-
     },
 
     /*create the buttons in rides form, it depends of the situation(new one or update one)*/
@@ -415,7 +418,6 @@ var Rides = {
 
       var daysRide = ride.days;
       var splitD =  daysRide.split("-");
-
         Components.update = true;
         var controls = document.getElementsByClassName('rides-data');
         var day = document.getElementsByClassName('chk-days');
@@ -464,6 +466,5 @@ var Rides = {
             $('.days-error-cont').append("<span class='errorStyle'>you should choose minimun a day</span>");
         }
     },
-
 }
 Rides.initNameSpace();

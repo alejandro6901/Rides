@@ -26,7 +26,6 @@ class Ride extends CI_Controller
          $days .= $day.'-';
       }
       $days = trim($days,'-');
-
       $data = array(
               'id_user' => $user['id'],
               'name' => $this->input->post('ride_name'),
@@ -39,14 +38,12 @@ class Ride extends CI_Controller
         );
       $this->load->model('Ride_model');
       $result = $this->Ride_model->insertRide($data);
-
       if ($result > 0) {
       $error['respuesta'] = true;
       echo json_encode($error);
     }else{
         echo json_encode($error);
     }
-
     }
     public function getRides()
     {
@@ -60,7 +57,10 @@ class Ride extends CI_Controller
          $message['data'] = $result;
           echo json_encode($message);
         }
-
+    }
+    public function updateRides()
+    {
+      
     }
     public function deleteRide()
     {
@@ -73,4 +73,8 @@ class Ride extends CI_Controller
         echo json_encode($message);
       }
     }
+
+
+
+
 }

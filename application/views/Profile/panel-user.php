@@ -207,7 +207,7 @@ if (isset($_SESSION['user'])) {
         </div>
       </div>
   </form>
-  <form class="container-fluid filter item-menu come-up" id="settings">
+  <form class="container-fluid filter item-menu come-up" id="form-settings" >
     <div class="row row-titule">
       <div class="titule">
         <h4>settings</h4>
@@ -217,8 +217,15 @@ if (isset($_SESSION['user'])) {
       <div class="row">
         <div class="col-md-6 col-sm-12 container-controls">
           <div class="control-input col-md-6">
-            <label class="frm-label-style" for="">Full Name</label>
-            <input class="frm-input-text-style settings-data" id="name" type="text" name="full_name" placeholder="my name is...">
+            <label class="frm-label-style" for="">Name</label>
+            <input class="frm-input-text-style settings-data" id="name" type="text" name="name" placeholder="my name is...">
+            <div id="UserNameErrorContainer"></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12 container-controls">
+          <div class="control-input col-md-6">
+            <label class="frm-label-style" for="">Last Name</label>
+            <input class="frm-input-text-style settings-data" id="last_name" type="text" name="last_name" placeholder="my last name is...">
             <div id="UserNameErrorContainer"></div>
           </div>
         </div>
@@ -234,7 +241,6 @@ if (isset($_SESSION['user'])) {
       <div class="row">
         <div class="control-input col-md-12">
           <label class="frm-label-style" for="">About me</label>
-
           <textarea class="frm-input-text-style settings-data" id="about-me" name="about_me" rows="8" cols="40" placeholder="we'd like to know something about you :)"></textarea>
         </div>
       </div>
@@ -245,10 +251,7 @@ if (isset($_SESSION['user'])) {
           <input class="frm-btn-style" type="button" name="name" id="cancel-settings" value="cancel">
         </div>
         <div class="col-md-6 container-frm-btn">
-
-          <input class="frm-btn-style" type="submit" name="name" id="save-settings" value="">
-
-
+          <input class="frm-btn-style" type="button" name="name" id="save-settings" value="save">
         </div>
       </div>
     </div>

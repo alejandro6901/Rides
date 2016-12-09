@@ -50,8 +50,6 @@ class User extends CI_Controller
                 'user_name' => $this->input->post('user_name'),
                 'password' => $this->input->post('password')
           );
-          $fullname = $data['name'].' '.$data['last_name'];
-          $data['full_name'] = $fullname;
         $this->load->model('User_model');
         $this->load->library('form_validation');
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
@@ -59,7 +57,6 @@ class User extends CI_Controller
         $this->form_validation->set_rules('phone', 'Phone', 'trim|required|numeric');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|matches[repeat]');
         $this->form_validation->set_rules('repeat', 'Repeat Password', 'trim|required');
-
         if ($this->form_validation->run()) {
             $this->User_model->insertUser($data);
             $error['respuesta'] = true;
@@ -69,4 +66,42 @@ class User extends CI_Controller
             echo json_encode($error);
         }
     }
+
+    public function getUserSettings()
+    {
+      $message = array('respuesta' => false,'data'=>false);
+      $user = $_SESSION['user'];
+      $this->load->model('User_model');
+      $result = $this->User_model->getUserSettings($user['id']);
+      if ($result > 0) {
+      $message['respuesta'] = true;
+       $message['data'] = $result[0];
+        echo json_encode($message);
+      }
+    }
+
+    public function updateUserSettings()
+    {
+      $message = array('respuesta' => false);
+      $user = $_SESSION['user'];
+      $id_user = $user['id'];
+      $data = array(
+              'name' => $this->input->post('name'),
+              'last_name' => $this->input->post('last_name'),
+              'speed_average' => $this->input->post('average'),
+              'about_me' => $this->input->post('about_me')
+        );
+      $this->load->model('User_model');
+      $result = $this->User_model->updateSettings($id_user,$data);
+      if ($result > 0) {
+        $message['respuesta'] = true;
+        echo json_encode($message);
+      }else{
+        echo json_encode($message);
+
+      }
+
+    }
+
+
 }
