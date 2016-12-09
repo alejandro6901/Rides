@@ -74,8 +74,10 @@ var PublicApp = {
               type: 'POST',
               data: $('#form-public').serialize(),
               success: function(msj) {
+
                 var json = JSON.parse(msj);
-                if (json.respuesta) {
+                  console.log(json);
+                if (json.response) {
                       for (var i = 0; i < json.data.length; i++) {
                           cellBtns = Components.addRowTable(json.data[i], table);
                           Components.createButtonsRow("table-btns show-ride", cellBtns, table, json.data[i], 3);
@@ -156,9 +158,9 @@ var PublicApp = {
         this.showPopup('window-login');
     },
 
-    showPanel() {
-        location.href = "./user-panel.html";
-    },
+    // showPanel() {
+    //     location.href = "./user-panel.html";
+    // },
 
     /*start the process to login the user*/
     signIn() {
@@ -169,11 +171,10 @@ var PublicApp = {
             data: $('#form').serialize(),
             success: function(msj) {
                 var json = JSON.parse(msj);
-                if (json.respuesta) {
+                if (json.response) {
                     PublicApp.hideSign();
                 } else if (json.invaliddata) {
                       $("#ErrorContainer").append("<span class='errorStyle'>Empty Fields</span>");
-
                   }else {
                      $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
                   }
@@ -187,26 +188,26 @@ var PublicApp = {
 
     /*validate the password in correct format, compare both password*/
     //parameter: list of controls HTML
-    validatePass(collectionControls) {
-        var regExp = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
-        var passControl1 = this.getControlPass(collectionControls, 'pass-1');
-        var passControl2 = this.getControlPass(collectionControls, 'pass-2');
-        if (!regExp.test(passControl1)) {
-            return "At least one uppercase and lowercase,least one digit, least one special character and Minimum 8 in length";
-        }
-        return passControl1 == passControl2 ? "" : "the passwords doesn't match";
-    },
+    // validatePass(collectionControls) {
+    //     var regExp = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+    //     var passControl1 = this.getControlPass(collectionControls, 'pass-1');
+    //     var passControl2 = this.getControlPass(collectionControls, 'pass-2');
+    //     if (!regExp.test(passControl1)) {
+    //         return "At least one uppercase and lowercase,least one digit, least one special character and Minimum 8 in length";
+    //     }
+    //     return passControl1 == passControl2 ? "" : "the passwords doesn't match";
+    // },
 
     /*get the password controls*/
     //parameter : dataCollection list of controls HTML
     //parameter: id of the element HTML to choose
-    getControlPass(dataCollection, Id) {
-        for (var i = 0; i < dataCollection.length; i++) {
-            if (dataCollection[i].id == Id) {
-                return dataCollection[i].value;
-            }
-        }
-    },
+    // getControlPass(dataCollection, Id) {
+    //     for (var i = 0; i < dataCollection.length; i++) {
+    //         if (dataCollection[i].id == Id) {
+    //             return dataCollection[i].value;
+    //         }
+    //     }
+    // },
 
     /*start the process to login the user and if it's ok, it will redirect to principal app*/
     logIn() {
@@ -217,7 +218,7 @@ var PublicApp = {
             data: $('#login-form').serialize(),
             success: function(msj) {
                 var json = JSON.parse(msj);
-                if (json.respuesta) {
+                if (json.response) {
                     location.href='User/';
                 } else if (json.invaliddata) {
                       $("#LoginErrorContainer").append("<span class='errorStyle'>Empty Fields</span>");

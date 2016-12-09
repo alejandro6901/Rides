@@ -81,7 +81,7 @@ var Rides = {
                     type: 'POST',
                     success: function(msj) {
                       var json = JSON.parse(msj);
-                      if (json.respuesta) {
+                      if (json.response) {
                           Rides.loadTableRides(json.data);
                       } else {
                           $("#ErrorContainer").append("<span class='errorStyle'>Error</span>");
@@ -159,7 +159,7 @@ var Rides = {
           data:$('#form-settings').serialize(),
           success: function(msj) {
             var json = JSON.parse(msj);
-            if (json.respuesta) {
+            if (json.response) {
                Rides.goStart();
             } else {
                 $("#ErrorContainer").append("<span class='errorStyle'>Error</span>");
@@ -186,7 +186,7 @@ var Rides = {
                                 data: $('#form-rides').serialize(),
                                 success: function(msj) {
                                   var json = JSON.parse(msj);
-                                  if (json.respuesta) {
+                                  if (json.response) {
                                       Rides.activeItem(document.getElementById('dashboard'));
                                   } else {
                                       $("#ErrorContainer").append("<span class='errorStyle'>Error</span>");
@@ -356,7 +356,7 @@ var Rides = {
           success: function(msj) {
 
             var json = JSON.parse(msj);
-            if (json.respuesta) {
+            if (json.response) {
                 Rides.activeItem(document.getElementById('dashboard'));
             } else {
                 $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
@@ -407,7 +407,7 @@ var Rides = {
           data: querystring,
           success: function(msj) {
             var json = JSON.parse(msj);
-            if (json.respuesta) {
+            if (json.response) {
                 Rides.activeItem(document.getElementById('dashboard'));
             } else {
                 $("#ErrorContainer").append("<span class='errorStyle'>Error</span>");

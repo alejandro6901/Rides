@@ -56,11 +56,11 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <label class="label-public-acces" for="from">from</label>
-                        <input class="input-text-style public-access" id="from" type="text" name="from" placeholder="examaple: Santa Monica" value="Las Mercedes, Porvenir, Quesada, Alajuela Province, Costa Rica">
+                        <input class="input-text-style public-access" id="from" type="text" name="from" placeholder="examaple: Santa Monica" value="California, United States">
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <label class="label-public-acces" for="to">to</label>
-                        <input class="input-text-style public-access" id="to" type="text" name="to" placeholder="example: Los Angeles" value="Venecia, Costa Rica">
+                        <input class="input-text-style public-access" id="to" type="text" name="to" placeholder="example: Los Angeles" value="Cambridge, MA, United States">
                     </div>
                 </div>
                 <div class="row">

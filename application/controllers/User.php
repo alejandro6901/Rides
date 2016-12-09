@@ -8,7 +8,6 @@ class User extends CI_Controller
     public function index()
     {
         $session = $this->session->flashdata('login');
-        $error = $this->session->flashdata('login');
         if ($session == null) {
             $this->load->view('User/login');
         } else {
@@ -22,27 +21,27 @@ class User extends CI_Controller
     }
     public function authenticate()
     {
-        $error = array('respuesta' => false, 'invaliddata' => false);
+        $message = array('response' => false, 'invaliddata' => false);
         $name = $this->input->post('name');
         $pass = $this->input->post('password');
         $this->load->model('User_model');
         $result = $this->User_model->getUser($name, $pass);
         if ($name == '' || $pass == '') {
-            $error['invaliddata'] = true;
-            echo json_encode($error);
-        } elseif (sizeof($result) > 0) {
+            $message['invaliddata'] = true;
+            echo json_encode($message);
+        } else if (sizeof($result) > 0) {
             $this->session->set_userdata('user', $result[0]);
             $session = $this->session->set_flashdata('login', true);
-            $error['respuesta'] = true;
-            echo json_encode($error);
+            $message['response'] = true;
+            echo json_encode($message);
         } else {
-            echo json_encode($error);
+            echo json_encode($message);
         }
     }
 
     public function insertUser()
     {
-        $error = array('respuesta' => false, 'invaliddata' => false);
+        $message = array('response' => false, 'invaliddata' => false);
         $data = array(
                 'name' => $this->input->post('name'),
                 'last_name' => $this->input->post('last_name'),
@@ -59,22 +58,22 @@ class User extends CI_Controller
         $this->form_validation->set_rules('repeat', 'Repeat Password', 'trim|required');
         if ($this->form_validation->run()) {
             $this->User_model->insertUser($data);
-            $error['respuesta'] = true;
-            echo json_encode($error);
+            $message['response'] = true;
+            echo json_encode($message);
         } else {
-            $error['invaliddata'] = true;
-            echo json_encode($error);
+            $message['invaliddata'] = true;
+            echo json_encode($message);
         }
     }
 
     public function getUserSettings()
     {
-      $message = array('respuesta' => false,'data'=>false);
+      $message = array('response' => false,'data'=>false);
       $user = $_SESSION['user'];
       $this->load->model('User_model');
       $result = $this->User_model->getUserSettings($user['id']);
       if ($result > 0) {
-      $message['respuesta'] = true;
+      $message['response'] = true;
        $message['data'] = $result[0];
         echo json_encode($message);
       }
@@ -82,7 +81,7 @@ class User extends CI_Controller
 
     public function updateUserSettings()
     {
-      $message = array('respuesta' => false);
+      $message = array('response' => false, 'match' );
       $user = $_SESSION['user'];
       $id_user = $user['id'];
       $data = array(
@@ -94,7 +93,7 @@ class User extends CI_Controller
       $this->load->model('User_model');
       $result = $this->User_model->updateSettings($id_user,$data);
       if ($result > 0) {
-        $message['respuesta'] = true;
+        $message['response'] = true;
         echo json_encode($message);
       }else{
         echo json_encode($message);
