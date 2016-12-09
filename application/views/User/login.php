@@ -56,11 +56,11 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <label class="label-public-acces" for="from">from</label>
-                        <input class="input-text-style public-access" id="from" type="text" name="from" placeholder="examaple: Santa Monica" value="California, United States">
+                        <input class="input-text-style public-access" id="from" type="text" name="from" placeholder="examaple: Santa Monica" value="">
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <label class="label-public-acces" for="to">to</label>
-                        <input class="input-text-style public-access" id="to" type="text" name="to" placeholder="example: Los Angeles" value="Cambridge, MA, United States">
+                        <input class="input-text-style public-access" id="to" type="text" name="to" placeholder="example: Los Angeles" value="">
                     </div>
                 </div>
                 <div class="row">
@@ -218,7 +218,7 @@
             </div>
         </div>
     </div>
-    <!-- <div id="map" style="position:absolute;" class="container close-popup close-map"></div> -->
+    <div id="map" style="position:absolute;" class="container close-popup close-map"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/validation.js"></script>

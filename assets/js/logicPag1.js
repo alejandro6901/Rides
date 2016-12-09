@@ -100,9 +100,9 @@ var PublicApp = {
     showRide(rideToShow) {
         document.getElementById('window-show-ride').classList.add('show-popup');
         document.getElementById('window-show-ride').classList.remove('close-popup');
-        // document.getElementById('map').classList.add('show-popup');
-        // document.getElementById('map').classList.add('show-map');
-        // document.getElementById('map').classList.remove('close-popup');
+        document.getElementById('map').classList.add('show-popup');
+        document.getElementById('map').classList.add('show-map');
+        document.getElementById('map').classList.remove('close-popup');
         document.getElementById('show-ride-from').innerHTML = rideToShow.place_from; //'Barrio San Miguel, Alajuela, Ciudad Quesada, Costa Rica';
         document.getElementById('show-ride-to').innerHTML = rideToShow.place_to; //'San Gerardo, Quesada, San Carlos, Alajuela, Costa Rica';
         var day = document.getElementById('show-ride-days');
@@ -118,7 +118,7 @@ var PublicApp = {
         document.getElementById('show-ride-description').innerHTML = rideToShow.description;
         document.getElementById('show-ride-name').innerHTML = rideToShow.name;
         document.getElementById('show-ride-shedule').innerHTML = "Departure : " + rideToShow.departure + " Arrival : " + rideToShow.arrival;
-        // initMap(rideToShow);
+        initMap(rideToShow);
     },
 
     /*call showPopup to close the modal and display out the map*/
@@ -188,15 +188,15 @@ var PublicApp = {
 
     /*validate the password in correct format, compare both password*/
     //parameter: list of controls HTML
-    // validatePass(collectionControls) {
-    //     var regExp = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
-    //     var passControl1 = this.getControlPass(collectionControls, 'pass-1');
-    //     var passControl2 = this.getControlPass(collectionControls, 'pass-2');
-    //     if (!regExp.test(passControl1)) {
-    //         return "At least one uppercase and lowercase,least one digit, least one special character and Minimum 8 in length";
-    //     }
-    //     return passControl1 == passControl2 ? "" : "the passwords doesn't match";
-    // },
+    validatePass(collectionControls) {
+        var regExp = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$");
+        var passControl1 = this.getControlPass(collectionControls, 'pass-1');
+        var passControl2 = this.getControlPass(collectionControls, 'pass-2');
+        if (!regExp.test(passControl1)) {
+            return "At least one uppercase and lowercase,least one digit, least one special character and Minimum 8 in length";
+        }
+        return passControl1 == passControl2 ? "" : "the passwords doesn't match";
+    },
 
     /*get the password controls*/
     //parameter : dataCollection list of controls HTML

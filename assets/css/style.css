@@ -235,13 +235,12 @@ section.container.settings-container {
     /* border-radius: 5px; */
 }
 .popup-cont {
-    padding: 15px;
+
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    /* width: 198px; */
-    /* background: teal; */
+  
 }
 .btn-close-pop-up img {
     width: 50%;
@@ -870,7 +869,7 @@ label.label-public-acces {
     top: 60%;
 }
 .style-show-ride {
-     color:#5b5b5b; 
+     color:#5b5b5b;
     text-transform: uppercase;
     letter-spacing: 3px;
     font-size: 9px;
