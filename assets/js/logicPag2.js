@@ -157,29 +157,13 @@ var Rides = {
           type: 'POST',
           success: function(msj) {
             var json = JSON.parse(msj);
-            console.log(json);
             $('#name').val(json.data.name);
             $('#last_name').val(json.data.last_name);
             $('#speed').val(json.data.speed_average);
             $('#about-me').val(json.data.about_me);
           }
       });
-    // var controls = document.getElementsByClassName('settings-data');
-    // var user;
-    // user = userBo.userCurrentData();
-    // for (var i = 0; i < controls.length; i++) {
-    //     switch (controls[i].id) {
-    //         case 'name':
-    //             controls[i].value = user.ToString(1);
-    //             break;
-    //         case 'speed':
-    //             controls[i].value = user.SpeedAverage;
-    //             break;
-    //         case 'about-me':
-    //             controls[i].value = user.AboutMe;
-    //             break;
-    //     }
-    // }
+
     },
 
     /*start the process to update the user info and valida if it has name and last name*/
@@ -197,19 +181,7 @@ var Rides = {
             }
           }
       });
-    // var controls = [];
-    // controls = document.getElementsByClassName('settings-data');
-    // var controlUserName = [];
-    // $(".errorStyle").remove();
-    // controlUserName.push(controls[0]);
-    // if (!Components.validateControls(controlUserName)) {
-    //     var userBo = new BO_User();
-    //     if (userBo.updateSettingsUser(controls)) {
-    //         this.goStart();
-    //     } else {
-    //         $("#UserNameErrorContainer").append("<span class='errorStyle'>you should have a name and last name</span>");
-    //     }
-    // }
+
     },
 
     /*start the proces to save the ride, validate the places and the inputs*/
@@ -326,8 +298,7 @@ var Rides = {
                 break;
             case 'update-ride':
                 input.addEventListener("click", function() {
-                  alert('HOLAAA');
-                    // Rides.updateRide(ride);
+                    Rides.updateRide(ride);
                 }, false);
                 break;
             case 'cancel-ride':
@@ -443,28 +414,22 @@ var Rides = {
 
     /*start the process to update a ride*/
     updateRide(ride) {
-        var controls = document.getElementsByClassName('rides-data');
-        var checkedDays = this.validateChecks();
-        if (checkedDays.length > 0) {
-            $('.days-error-cont').remove();
-            if (!Components.validateControls(controls)) {
-                // var rideBo = new BO_Ride();
-                //this.placeTo.geometry.location.lat() != this.placeFrom.geometry.location.lat() && this.placeTo.geometry.location.lng() != this.placeFrom.geometry.location.lng()
-                if (rideBo.updateRide(rideBo.createRide(controls, this.placeFrom, this.placeTo, document.getElementById('from').value, document.getElementById('to').value, checkedDays, ride), rideBo)) {
-                    //var rides = rideBo.loadRides();
-                    this.clearControlsRide();
-                    this.activeItem(document.getElementById('dashboard'));
-                    Components.update = false;
-                    Components.autoFrom = false;
-                    Components.autoTo = false
-                } else {
-                    alert("we couldn't update " + ride.GetName());
-                }
+      var form = $('#form-rides').serialize();
+      var querystring = "id="+ride.id+"&"+form;
+      $.ajax({
+          url: 'updateRides',
+          type: 'POST',
+          data: querystring,
+          success: function(msj) {
+            var json = JSON.parse(msj);
+            if (json.respuesta) {
+                Rides.activeItem(document.getElementById('dashboard'));
+            } else {
+                $("#ErrorContainer").append("<span class='errorStyle'>Error</span>");
             }
-        } else {
-            Components.validateControls(controls);
-            $('.days-error-cont').append("<span class='errorStyle'>you should choose minimun a day</span>");
-        }
+           }
+      });
+
     },
 }
 Rides.initNameSpace();

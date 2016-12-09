@@ -19,10 +19,17 @@ class Ride_model extends CI_Model
        $query = $this->db->get_where('rides',array('id_user' => $id));
        return $query->result_array();
    }
+
    public function deleteRide($id_ride,$id)
    {
       $this->db->delete('rides',array('id' => $id_ride,'id_user' => $id));
        return $this->db->affected_rows();
+   }
+   public function updateRide($id_ride,$data)
+   {
+     $this->db->where('id',$id_ride);
+     $this->db->update('rides',$data);
+     return $this->db->affected_rows();
    }
 
 }

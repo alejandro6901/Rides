@@ -21,7 +21,6 @@ class Ride extends CI_Controller
       $error = array('respuesta' => false);
       $user = $_SESSION['user'];
       $days = '';
-
       foreach ($_POST['days'] as $day) {
          $days .= $day.'-';
       }
@@ -51,7 +50,6 @@ class Ride extends CI_Controller
         $user = $_SESSION['user'];
         $this->load->model('Ride_model');
         $result = $this->Ride_model->getRides($user['id']);
-
         if ($result > 0) {
           $message['respuesta'] = true;
          $message['data'] = $result;
@@ -60,8 +58,31 @@ class Ride extends CI_Controller
     }
     public function updateRides()
     {
-      
+      $days = '';
+      foreach ($_POST['days'] as $day) {
+         $days .= $day.'-';
+      }
+      $days = trim($days,'-');
+      $message = array('respuesta' => false);
+      $data = array(
+              'name' => $this->input->post('ride_name'),
+              'place_from' => $this->input->post('start'),
+              'place_to' => $this->input->post('to'),
+              'description' => $this->input->post('description'),
+              'departure' => $this->input->post('departure'),
+              'arrival' => $this->input->post('arrival'),
+              'days' => $days
+        );
+      $id_ride = $this->input->post('id');
+      $this->load->model('Ride_model');
+      $result = $this->Ride_model->updateRide($id_ride,$data);
+      if ($result > 0) {
+        $message['respuesta'] = true;
+        echo json_encode($message);
+      }else{
+        echo json_encode($message);
     }
+}
     public function deleteRide()
     {
       $message = array('respuesta' => false);
