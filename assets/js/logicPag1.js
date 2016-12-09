@@ -63,25 +63,33 @@ var PublicApp = {
 
     /*search in the storage places with the parameters placeFrom and placeTo*/
     findRide() {
-        var rideBo = new BO_Ride();
         var table = document.querySelector('tbody');
         while (table.hasChildNodes()) {
             table.removeChild(table.firstChild);
         }
         var cellBtns;
         if (!(Components.validateControls(document.getElementsByClassName('input-text-style public-access')))) {
-            var rides = rideBo.loadRides(this.placeFrom, this.placeTo);
-            if (rides.length > 0) {
-                if (this.placeFrom != null && this.placeTo != null) {
-                    for (var i = 0; i < rides.length; i++) {
-                        cellBtns = Components.addRowTable(rides[i], table);
-                        Components.createButtonsRow("table-btns show-ride", cellBtns, table, rides[i], 3);
-                    }
+          $.ajax({
+              url: 'Ride/getRidesPublic',
+              type: 'POST',
+              data: $('#form-public').serialize(),
+              success: function(msj) {
+                var json = JSON.parse(msj);
+                if (json.respuesta) {
+                      for (var i = 0; i < json.data.length; i++) {
+                          cellBtns = Components.addRowTable(json.data[i], table);
+                          Components.createButtonsRow("table-btns show-ride", cellBtns, table, json.data[i], 3);
+                      }
+                        Components.fixedTable();
+                } else {
+                    $("#ErrorContainer").append("<span class='errorStyle'>Error</span>");
                 }
-                Components.fixedTable();
-            } else {
-                Components.fixedTable();
-            }
+              }
+          });
+
+
+
+
         }
     },
 

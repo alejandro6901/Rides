@@ -52,15 +52,15 @@
             </div>
         </section>
         <section class="items-principal-page container search-rides-container slide-down">
-            <form class="container-search-ride">
+            <form class="container-search-ride" id="form-public">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <label class="label-public-acces" for="from">from</label>
-                        <input class="input-text-style public-access" id="from" type="text" name="name" placeholder="examaple: Santa Monica" value="">
+                        <input class="input-text-style public-access" id="from" type="text" name="from" placeholder="examaple: Santa Monica" value="">
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <label class="label-public-acces" for="to">to</label>
-                        <input class="input-text-style public-access" id="to" type="text" name="name" placeholder="example: Los Angeles" value="">
+                        <input class="input-text-style public-access" id="to" type="text" name="to" placeholder="example: Los Angeles" value="">
                     </div>
                 </div>
                 <div class="row">

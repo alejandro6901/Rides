@@ -4,14 +4,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Ride extends CI_Controller
 {
-  public function __construct()
-  {
-      parent::__construct();
-      if (!isset($_SESSION['user'])) {
-          redirect('/');
-      }
-
-  }
+  // public function __construct()
+  // {
+  //     parent::__construct();
+  //     if (!isset($_SESSION['user'])) {
+  //         redirect('/');
+  //     }
+  //
+  // }
     public function index()
     {
         $this->load->view('Profile/panel-user');
@@ -50,6 +50,19 @@ class Ride extends CI_Controller
         $user = $_SESSION['user'];
         $this->load->model('Ride_model');
         $result = $this->Ride_model->getRides($user['id']);
+        if ($result > 0) {
+          $message['respuesta'] = true;
+         $message['data'] = $result;
+          echo json_encode($message);
+        }
+    }
+    public function getRidesPublic()
+    {
+        $message = array('respuesta' => false,'data' =>false);
+        $from = $this->input->post('from');
+        $to = $this->input->post('to');
+        $this->load->model('Ride_model');
+        $result = $this->Ride_model->getRidesPublic($from,$to);
         if ($result > 0) {
           $message['respuesta'] = true;
          $message['data'] = $result;
