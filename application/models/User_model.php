@@ -17,6 +17,11 @@ class User_model extends CI_Model
       $query = $this->db->get_where('user',array('user_name' =>$user,'password' => $pass));
       return $query->result_array();
    }
+   public function getAllUsers()
+   {
+       $query = $this->db->get('user');
+        return $query->result_array();
+   }
    public function updateSettings($id,$data)
    {
      $this->db->where('id',$id);

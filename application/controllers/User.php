@@ -57,9 +57,21 @@ class User extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'trim|required|matches[repeat]');
         $this->form_validation->set_rules('repeat', 'Repeat Password', 'trim|required');
         if ($this->form_validation->run()) {
-            $this->User_model->insertUser($data);
-            $message['response'] = true;
-            echo json_encode($message);
+            $users = $this->User_model->getAllUsers();
+             if ($users) {
+               if ($users[0]['user_name'] !== $data['user_name']) {
+                 $this->User_model->insertUser($data);
+                 $message['response'] = true;
+                 echo json_encode($message);
+               }else{
+                 echo json_encode($message);
+               }
+            }else{
+              $this->User_model->insertUser($data);
+              $message['response'] = true;
+              echo json_encode($message);
+            }
+
         } else {
             $message['invaliddata'] = true;
             echo json_encode($message);

@@ -176,7 +176,7 @@ var PublicApp = {
                 } else if (json.invaliddata) {
                       $("#ErrorContainer").append("<span class='errorStyle'>Empty Fields</span>");
                   }else {
-                     $("#ErrorContainer").append("<span class='errorStyle'>MAME</span>");
+                     $("#ErrorContainer").append("<span class='errorStyle'>The User Name Already Exists</span>");
                   }
 
             }
