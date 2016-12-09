@@ -34,7 +34,7 @@ class Ride_model extends CI_Model
 
    public function getRidesPublic($place_from,$place_to)
    {
-       $query = $this->db->query("SELECT name,place_from,place_to FROM `rides` WHERE (place_from LIKE '%$place_from%') and ( place_to LIKE '%$place_to%')");
+       $query = $this->db->query("SELECT * FROM `rides` WHERE (place_from LIKE '%$place_from%') and ( place_to LIKE '%$place_to%')");
        return $query->result_array();
    }
 

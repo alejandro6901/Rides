@@ -81,10 +81,10 @@ var Components = {
                     cell.innerHTML = ride.name;
                     break;
                 case 1:
-                    cell.innerHTML = ride.place_to;
+                    cell.innerHTML = ride.place_from;
                     break;
                 case 2:
-                    cell.innerHTML = ride.place_from;
+                    cell.innerHTML = ride.place_to;
                     break;
             }
         }

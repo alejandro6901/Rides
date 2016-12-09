@@ -98,25 +98,25 @@ var PublicApp = {
     showRide(rideToShow) {
         document.getElementById('window-show-ride').classList.add('show-popup');
         document.getElementById('window-show-ride').classList.remove('close-popup');
-        document.getElementById('map').classList.add('show-popup');
-        document.getElementById('map').classList.add('show-map');
-        document.getElementById('map').classList.remove('close-popup');
-        document.getElementById('show-ride-from').innerHTML = rideToShow.StartLocation.PlaceName; //'Barrio San Miguel, Alajuela, Ciudad Quesada, Costa Rica';
-        document.getElementById('show-ride-to').innerHTML = rideToShow.EndLocation.PlaceName; //'San Gerardo, Quesada, San Carlos, Alajuela, Costa Rica';
-        var days = document.getElementById('show-ride-days');
-        days.innerHTML = '';
-        if (7 != rideToShow.Days.length) {
-            for (var i = 0; i < rideToShow.Days.length; i++) {
-                days.innerHTML += " - " + rideToShow.Days[i];
+        // document.getElementById('map').classList.add('show-popup');
+        // document.getElementById('map').classList.add('show-map');
+        // document.getElementById('map').classList.remove('close-popup');
+        document.getElementById('show-ride-from').innerHTML = rideToShow.place_from; //'Barrio San Miguel, Alajuela, Ciudad Quesada, Costa Rica';
+        document.getElementById('show-ride-to').innerHTML = rideToShow.place_to; //'San Gerardo, Quesada, San Carlos, Alajuela, Costa Rica';
+        var day = document.getElementById('show-ride-days');
+        day.innerHTML = '';
+        if (7 != rideToShow.days.length) {
+            for (var i = 0; i < rideToShow.days.length; i++) {
+                day.innerHTML += " - " + rideToShow.days[i];
             }
         } else {
-            days.innerHTML = "all the days";
+            day.innerHTML = "all the days";
         }
 
-        document.getElementById('show-ride-description').innerHTML = rideToShow.Description;
-        document.getElementById('show-ride-name').innerHTML = rideToShow.Name;
-        document.getElementById('show-ride-shedule').innerHTML = "Departure : " + rideToShow.Departure + " Arrival : " + rideToShow.Arrival;
-        initMap(rideToShow);
+        document.getElementById('show-ride-description').innerHTML = rideToShow.description;
+        document.getElementById('show-ride-name').innerHTML = rideToShow.name;
+        document.getElementById('show-ride-shedule').innerHTML = "Departure : " + rideToShow.departure + " Arrival : " + rideToShow.arrival;
+        // initMap(rideToShow);
     },
 
     /*call showPopup to close the modal and display out the map*/

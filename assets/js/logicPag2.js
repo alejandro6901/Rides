@@ -61,21 +61,6 @@ var Rides = {
         }
     },
 
-    // /*logout the user*/
-    // logout() {
-    //     var userBo = new BO_User();
-    //     userBo.logOut();
-    //     location.href = "./index.html";
-    // },
-
-    /*load the user information and display the userName*/
-    // loadUserData() {
-    //     var userBo = new BO_User();
-    //     var user;
-    //     user = userBo.userCurrentData();
-    //     $('#userName').text('Hi\n' + user.ToString());
-    // },
-
     /*display a panel*/
     //parameter e: id of a element HTML
     activeItem(e) {

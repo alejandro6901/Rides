@@ -870,12 +870,12 @@ label.label-public-acces {
     top: 60%;
 }
 .style-show-ride {
-    color: #868686;
+     color:#5b5b5b; 
     text-transform: uppercase;
-    letter-spacing: 6px;
+    letter-spacing: 3px;
     font-size: 9px;
     text-align: center;
-    /* background: #e9e9e9; */
+    background: #e9e9e9;
     width: 100%;
     padding: 4px;
     /* margin: 0 auto; */
